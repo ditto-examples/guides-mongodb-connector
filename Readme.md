@@ -19,6 +19,14 @@ This is a sample application that demonstrates how to use the MongoDB Connector 
 - Basic understanding of Kotlin and Jetpack Compose for Android app
 - Android Studio "Koala" 2024.1.1 or higher
 
+## .NET Maui
+- Basic understanding of .NET Maui and Shell for .NET Maui app
+- Visual Studio 2022, Visual Studio Code with [.NET Maui extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-maui), Cursor with [.NET Maui extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-maui), or JetBrains Rider 2024.1 or higher
+
+> [!NOTE]
+> Ditto .NET SDK for Maui currently does NOT support Mac Catalyst or Windows, see [Ditto Docs - Compatibility Matrix](https://docs.ditto.live/sdk/latest/compatibility/c-sharp)
+> 
+
 # Setup in MongoDB Atlas
 
 ## Setup Atlas User from within MongoDB Atlas
