@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Guides.ViewModels"
+             x:Class="Guides.Views.PlanetEditorPage"
+             x:DataType="viewModels:PlanetEditorViewModel"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*" Padding="16">
+        <!-- Header -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="16">
+            <Button Text="×"
+                    Command="{Binding CancelCommand}"
+                    Style="{StaticResource ThinButton}"/>
+            <Label Text="{Binding Title}"
+                   Style="{StaticResource Title}"
+                   VerticalOptions="Center"/>
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource ThinButton}"
+                    HorizontalOptions="EndAndExpand"/>
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="24">
+                <!-- Basic Information -->
+                <Border Padding="16"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Basic Information" 
+                               Style="{StaticResource SubHeadline}"/>
+                        
+                        <Entry Placeholder="Name"
+                               Text="{Binding Name}"/>
+                        
+                        <VerticalStackLayout>
+                            <Label Text="Order from Sun" 
+                                   FontSize="12"/>
+                            <Entry Text="{Binding OrderFromSun}"
+                                   Keyboard="Numeric"/>
+                        </VerticalStackLayout>
+                        
+                        <HorizontalStackLayout>
+                            <Label Text="Has Rings"
+                                   VerticalOptions="Center"/>
+                            <Switch IsToggled="{Binding HasRings}"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Atmosphere -->
+                <Border Padding="16"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Atmosphere" 
+                               Style="{StaticResource SubHeadline}"/>
+                        <Entry Placeholder="Enter atmospheres (comma separated)"
+                               Text="{Binding Atmosphere}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Surface Temperature -->
+                <Border Padding="16"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Surface Temperature (°C)" 
+                               Style="{StaticResource SubHeadline}"/>
+                        
+                        <Entry Placeholder="Maximum"
+                               Text="{Binding MaxTemp}"
+                               Keyboard="Numeric"/>
+                        
+                        <VerticalStackLayout>
+                            <Label Text="Mean" 
+                                   FontSize="12"/>
+                            <Entry Text="{Binding MeanTemp}"
+                                   Keyboard="Numeric"/>
+                        </VerticalStackLayout>
+                        
+                        <Entry Placeholder="Minimum"
+                               Text="{Binding MinTemp}"
+                               Keyboard="Numeric"/>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage> 
