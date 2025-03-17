@@ -82,3 +82,10 @@ Android/app/*.apk
 Android/*.jks
 Android/*.keystore
 Android/app/google-services.json
+
+# Dotnet
+
+Dotnet/.idea
+Dotnet/.vscode
+Dotnet/bin
+Dotnet/obj

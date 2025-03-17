@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Guides.ViewModels"
+             xmlns:models="clr-namespace:Guides.Models"
+             xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
+             x:Class="Guides.Views.MainPage"
+             x:DataType="viewModels:MainPageViewModel"
+             Title="Planets">
+    <Grid RowDefinitions="*,Auto" 
+          Padding="16">
+        
+        <!-- 
+        *************************
+        No Planets Found Message 
+        ************************
+         --> 
+        <VerticalStackLayout Grid.Row="0"
+                            IsVisible="{Binding PlanetCount, Converter={StaticResource IsZeroConverter}}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Spacing="16">
+            <Image Source="planet.png"
+                   HeightRequest="48"
+                   WidthRequest="48"
+                   SemanticProperties.Description="Planet icon"/>
+            <Label Text="No Planets"
+                   Style="{StaticResource Headline}"
+                   HorizontalOptions="Center"/>
+            <Label Text="There are no planets to display"
+                   Style="{StaticResource SubHeadline}"
+                   TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- 
+        ********************
+        Planet List 
+        ********************
+         --> 
+        <ScrollView Grid.Row="0" 
+                   VerticalScrollBarVisibility="Never">
+            <CollectionView ItemsSource="{Binding Planets}"
+                           Margin="8,0,8,0"
+                           IsVisible="{Binding PlanetCount, Converter={StaticResource NotZeroConverter}}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" 
+                                      ItemSpacing="24"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Planet">
+                        <Border Margin="0,0,0,8"
+                               Padding="16"
+                               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"
+                               Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                               StrokeThickness="1"
+                               StrokeShape="RoundRectangle 8">
+                            <Border.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray950}}"
+                                        Offset="0,2"
+                                        Radius="4"
+                                        Opacity="0.5"/>
+                            </Border.Shadow>
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                                
+                                <!-- Planet Name -->
+                                <Label Text="{Binding Name}"
+                                       Style="{StaticResource Title}"
+                                       HorizontalOptions="Start"
+                                       Margin="0,0,0,8"
+                                       Grid.Row="0"/>
+                                
+                                <!-- Atmosphere -->
+                                <HorizontalStackLayout Grid.Row="1" Spacing="4">
+                                    <Label Text="Atmosphere: " />
+                                    <Label Text="{Binding MainAtmosphere, Converter={StaticResource ListToStringConverter}}" />
+                                </HorizontalStackLayout>
+                                
+                                <!-- Temperatures -->
+                                    <HorizontalStackLayout Grid.Row="2" Spacing="4"  IsVisible="{Binding SurfaceTemperatureC.Max, Converter={StaticResource NotNullConverter}}" >
+                                        <Label Text="Max: " />
+                                        <Label Text="{Binding SurfaceTemperatureC.Max, StringFormat='{0:F0}°C'}" />
+                                    </HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Grid.Row="3" Spacing="4">
+                                        <Label Text="Mean: " />
+                                        <Label Text="{Binding SurfaceTemperatureC.Mean, StringFormat='{0:F0}°C'}" />
+                                    </HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Grid.Row="4" Spacing="4" IsVisible="{Binding SurfaceTemperatureC.Min, Converter={StaticResource NotNullConverter}}">
+                                        <Label Text="Min: " />
+                                        <Label Text="{Binding SurfaceTemperatureC.Min, StringFormat='{0:F0}°C'}" />
+                                    </HorizontalStackLayout>
+                                
+                                <!-- Action Buttons -->
+                                <HorizontalStackLayout Grid.Row="5" 
+                                                     Spacing="8"
+                                                     HorizontalOptions="End"
+                                                     Margin="0,8,0,0">
+                                    <Button Text="Edit"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=EditPlanetCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Style="{StaticResource FilledTonalButton}"/>
+                                    <Button Text="Delete"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeletePlanetCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Style="{StaticResource FilledTonalButton}"
+                                            BackgroundColor="{StaticResource Red}"
+                                            TextColor="{StaticResource White}"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- 
+        ********************
+        Add Planet Button 
+        ********************
+         --> 
+        <Button Text="+"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=AddPlanetCommand}"
+                Style="{StaticResource CircleButton}"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,4,0,0"/>
+    </Grid>
+</ContentPage>
