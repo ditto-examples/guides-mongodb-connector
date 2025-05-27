@@ -1,3 +1,5 @@
+This repo is archived.  For the latest example on the MongoDB Connector - please check out the [new example app](https://github.com/ditto-examples/mflix-mongodb-connector).
+
 # Ditto - Sample MongoDB Connector `Solar System Guides` App
 
 This is a sample application that demonstrates how to use the MongoDB Connector for Ditto with the **`guides`** sample data that comes with MongoDb Atlas. 
